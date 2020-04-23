@@ -1,4 +1,0 @@
-rootProject.name='Bones'
-
-include ':library'
-include ':demo'
