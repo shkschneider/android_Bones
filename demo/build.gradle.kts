@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-android-extensions")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -29,6 +30,7 @@ dependencies {
     implementation(Dependencies.AndroidConstraintLayout)
     implementation(Dependencies.AndroidCoreKtx)
     implementation(Dependencies.GoogleMaterial)
+    implementation(Dependencies.KotlinSerialization)
     implementation(Dependencies.KotlinStdlib)
     implementation(Projects.Library)
 }

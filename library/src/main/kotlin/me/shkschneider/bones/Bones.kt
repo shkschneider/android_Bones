@@ -1,3 +1,5 @@
 package me.shkschneider.bones
 
-object Bones
+fun bones() = lazy {
+    true
+}

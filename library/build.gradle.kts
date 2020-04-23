@@ -5,4 +5,5 @@ plugins {
 
 dependencies {
     implementation(Dependencies.KotlinStdlib)
+    implementation(Dependencies.KotlinSerialization)
 }

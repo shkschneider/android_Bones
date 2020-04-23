@@ -1,3 +1,7 @@
+plugins {
+    id(Plugins.kotlinJvm) version "1.3.72"
+}
+
 buildscript {
     repositories {
         google()
@@ -5,6 +9,7 @@ buildscript {
     }
     dependencies {
         plugin(Plugins.KotlinGradle)
+        plugin(Plugins.KotlinSerialization)
         plugin(Plugins.AndroidGradle)
     }
 }

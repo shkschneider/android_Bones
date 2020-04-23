@@ -17,6 +17,7 @@ sealed class Plugins(
     }
 
     object KotlinGradle : Plugins("org.jetbrains.kotlin", "kotlin-gradle-plugin", Versions.kotlin)
+    object KotlinSerialization : Plugins("org.jetbrains.kotlin", "kotlin-serialization", Versions.kotlin)
     object AndroidGradle : Plugins("com.android.tools.build", "gradle", "3.6.3")
 
     override fun toString(): String = "$group:$name:$version"
