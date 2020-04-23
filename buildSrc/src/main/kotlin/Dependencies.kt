@@ -8,11 +8,7 @@ sealed class Dependencies(
 ) {
 
     object KotlinStdlib : Dependencies("org.jetbrains.kotlin", "kotlin-stdlib", Versions.kotlin)
-    object KotlinSerialization : Dependencies("org.jetbrains.kotlinx", "kotlinx-serialization-runtime", "0.20.0")
-    object AndroidAppCompat : Dependencies("androidx.appcompat", "appcompat","1.1.0")
-    object AndroidConstraintLayout : Dependencies("androidx.constraintlayout", "constraintlayout", "1.1.3")
-    object AndroidCoreKtx : Dependencies("androidx.core", "core-ktx" , "1.2.0")
-    object GoogleMaterial : Dependencies("com.google.android.material", "material", "1.1.0")
+    object KotlinxSerialization : Dependencies("org.jetbrains.kotlinx", "kotlinx-serialization-runtime", "0.20.0")
 
     override fun toString(): String = "$group:$name:$version"
 

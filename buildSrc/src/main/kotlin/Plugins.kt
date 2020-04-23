@@ -8,17 +8,17 @@ sealed class Plugins(
 ) {
     companion object {
 
+        const val base = "base"
         const val gradleApplication = "org.gradle.application"
         const val javaLibrary = "java-library"
         const val kotlin = "kotlin"
         const val kotlinJvm = "org.jetbrains.kotlin.jvm"
-        const val kotlinxSerialization = "kotlinx-serialization"
+        const val kotlinSerialization = "org.jetbrains.kotlin.plugin.serialization"
 
     }
 
     object KotlinGradle : Plugins("org.jetbrains.kotlin", "kotlin-gradle-plugin", Versions.kotlin)
     object KotlinSerialization : Plugins("org.jetbrains.kotlin", "kotlin-serialization", Versions.kotlin)
-    object AndroidGradle : Plugins("com.android.tools.build", "gradle", "3.6.3")
 
     override fun toString(): String = "$group:$name:$version"
 

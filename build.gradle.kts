@@ -1,28 +1,15 @@
 plugins {
-    id(Plugins.kotlinJvm) version "1.3.72"
+    id(Plugins.base)
 }
 
 buildscript {
     repositories {
-        google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
         plugin(Plugins.KotlinGradle)
         plugin(Plugins.KotlinSerialization)
-        plugin(Plugins.AndroidGradle)
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = Versions.java
-        }
     }
 }
 
@@ -32,4 +19,24 @@ tasks {
         gradleVersion = Versions.gradle
         distributionType = Wrapper.DistributionType.BIN
     }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    pluginManager.withPlugin(Plugins.kotlin) {
+        dependencies {
+            implementation(Dependencies.KotlinStdlib)
+        }
+    }
+}
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.jvmTarget = Versions.java
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
 }

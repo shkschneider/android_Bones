@@ -1,10 +1,11 @@
 plugins {
     id(Plugins.javaLibrary)
+    id(Plugins.kotlin)
     id(Plugins.kotlinJvm)
-    id(Plugins.kotlinxSerialization)
+    id(Plugins.kotlinSerialization)
 }
 
 dependencies {
     implementation(Dependencies.KotlinStdlib)
-    implementation(Dependencies.KotlinSerialization)
+    implementation(Dependencies.KotlinxSerialization)
 }
