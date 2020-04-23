@@ -4,8 +4,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.6.3")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72")
+        plugin(Plugins.KotlinGradle)
+        plugin(Plugins.AndroidGradle)
     }
 }
 
@@ -13,5 +13,10 @@ allprojects {
     repositories {
         google()
         jcenter()
+    }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = Versions.java
+        }
     }
 }

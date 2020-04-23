@@ -1,5 +1,6 @@
-rootProject.name = "Bones"
+rootProject.name = Bones.name
 rootProject.buildFileName = "build.gradle.kts"
 
-include(":library")
-include(":demo")
+Projects::class.sealedSubclasses.map { it.objectInstance as Projects }.forEach {
+    include(it.toString())
+}
