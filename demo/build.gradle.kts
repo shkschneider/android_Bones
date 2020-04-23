@@ -7,11 +7,11 @@ plugins {
 android {
     compileSdkVersion(Android.compile)
     defaultConfig {
-        applicationId = Bones.id
+        applicationId = Project.id
         minSdkVersion(Android.min)
         targetSdkVersion(Android.target)
-        versionCode = Bones.versionCode
-        versionName = Bones.version
+        versionCode = Project.versionCode
+        versionName = Project.versionName
     }
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")

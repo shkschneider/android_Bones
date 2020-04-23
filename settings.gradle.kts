@@ -1,6 +1,7 @@
-rootProject.name = Bones.name
+// Classes from buildSrc are no longer visible to settings scripts
+
+rootProject.name = "Bones"
 rootProject.buildFileName = "build.gradle.kts"
 
-Projects::class.sealedSubclasses.map { it.objectInstance as Projects }.forEach {
-    include(it.toString())
-}
+include(":library")
+include(":demo")

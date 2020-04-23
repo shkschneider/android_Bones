@@ -20,3 +20,11 @@ allprojects {
         }
     }
 }
+
+//println("Gradle ${gradle.gradleVersion}")
+tasks {
+    wrapper {
+        gradleVersion = Versions.gradle
+        distributionType = Wrapper.DistributionType.BIN
+    }
+}

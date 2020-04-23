@@ -7,4 +7,7 @@ object Versions {
     // https://plugins.gradle.org/plugin/org.jetbrains.kotlin.jvm
     const val kotlin = "1.3.72" // embeddedKotlinVersion
 
+    // https://gradle.org/releases/
+    const val gradle = "6.3"
+
 }
