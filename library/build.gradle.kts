@@ -8,4 +8,7 @@ plugins {
 dependencies {
     implementation(Dependencies.KotlinStdlib)
     implementation(Dependencies.KotlinxSerialization)
+    testImplementation(Dependencies.KotlinTest)
+    testImplementation(Dependencies.KotlinJunit)
+    testImplementation(Dependencies.Junit)
 }

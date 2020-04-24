@@ -1,26 +1,30 @@
 package me.shkschneider.bones
 
-object Application {
+import kotlinx.serialization.json.JsonConfiguration
 
-    private val bones = Bones(Bone.serializer())
-    private val clavicle = Bone.clavicle
+object Application {
 
     @JvmStatic
     fun main(vararg argv: String) {
         println("Bones!")
-        var bone: Bone? = clavicle
-        println("What I start with: $clavicle")
-        println("What my bone looks like: $bone")
-        println("I'm plastering my bone")
-        bones.plaster(bone)
-        println("Ouch... just broke my bone")
-        bone?.isBroken = true
-        println("What my bone now looks like: $bone")
-        bone = bones.restore()
-        println("What my plaster bone looks like: $bone")
-        when (bone?.isBroken) {
-            false -> println("Feeling happy")
-            else -> println("Feeling sad")
+        Medik.jsonConfiguration = JsonConfiguration.Stable.copy(prettyPrint = false)
+        val bone = Bone(
+            name = "Wrist",
+            length = 3.toFloat(),
+            isBroken = false,
+            description = "Lorem ipsum."
+        )
+        with(Medik(Bone.serializer(), bone)) {
+            println("What my bone looks like: $value")
+            println("Ouch... just broke my bone")
+            value = bone.copy(isBroken = true)
+            println("What my bone now looks like: $value")
+            value = bone.copy(isBroken = false)
+            println("What plastering made my bone now look like: $value")
+            when (value?.isBroken) {
+                false -> println("Feeling happy")
+                else -> println("Feeling sad")
+            }
         }
     }
 
