@@ -3,10 +3,7 @@ plugins {
 }
 
 buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
+    repositories()
     dependencies {
         plugin(Plugins.KotlinGradle)
         plugin(Plugins.KotlinSerialization)

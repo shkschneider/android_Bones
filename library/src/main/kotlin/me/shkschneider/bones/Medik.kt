@@ -9,15 +9,15 @@ import kotlinx.serialization.json.JsonException
 import kotlin.properties.Delegates
 
 class Medik<T : Any>(
+    internal val medicine: Medicine = DiskMedicine(),
     private val serializer: KSerializer<T>,
     value: T? = null
 ) {
 
     companion object {
 
-        var jsonConfiguration = JsonConfiguration.Stable.copy(prettyPrint = false)
         private val json by lazy {
-            Json(jsonConfiguration)
+            Json(JsonConfiguration.Stable)
         }
 
     }
@@ -29,7 +29,7 @@ class Medik<T : Any>(
 
     internal fun plaster(new: T?) {
         try {
-            memory = new?.let { json.toJson(serializer, it) }
+            medicine.write(new?.let { json.toJson(serializer, it) }?.toString())
         } catch (e: JsonException) {
             TODO("JsonException: ${e.message}")
         } catch (e: SerializationException) {
@@ -39,7 +39,7 @@ class Medik<T : Any>(
 
     internal fun repair(string: String?): Boolean =
         try {
-            memory = string?.let { json.parseJson(it) }
+            medicine.write(string)
             repair()
         } catch (e: Exception) {
             false
@@ -47,7 +47,7 @@ class Medik<T : Any>(
 
     fun repair(): Boolean {
         return try {
-            value = memory?.let { json.fromJson(serializer, it) }
+            value = medicine.read()?.let { json.fromJson(serializer, json.parseJson(it)) }
             value != null
         } catch (e: JsonException) {
             false
