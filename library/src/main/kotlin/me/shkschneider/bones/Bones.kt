@@ -4,9 +4,10 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import kotlinx.serialization.json.JsonElement
-import kotlin.reflect.KProperty
 
-class BoneDelegate<T : Any>(private val serializer: KSerializer<T>) {
+class Bones<T : Any>(
+    private val serializer: KSerializer<T>
+) {
 
     companion object {
 
@@ -16,17 +17,12 @@ class BoneDelegate<T : Any>(private val serializer: KSerializer<T>) {
 
     private var json: JsonElement? = null
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): T? =
-        jsonToObject(json)
-
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
+    fun plaster(value: T?) {
         json = objectToJson(value)
     }
 
-//    private fun stringToJson(string: String?): JsonElement? =
-//        string?.let {
-//            provider.parseJson(it)
-//        }
+    fun restore(): T? =
+        jsonToObject(json)
 
     private fun jsonToObject(jsonElement: JsonElement?): T? =
         jsonElement?.let {
@@ -37,7 +33,5 @@ class BoneDelegate<T : Any>(private val serializer: KSerializer<T>) {
         obj?.let {
             provider.toJson(serializer, it)
         }
-
-    override fun toString(): String = json.toString()
 
 }
