@@ -5,3 +5,4 @@ rootProject.buildFileName = "build.gradle.kts"
 
 include(":library")
 include(":demo")
+include(":cli")

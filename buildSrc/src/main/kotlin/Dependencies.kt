@@ -7,6 +7,8 @@ sealed class Dependencies(
     private val version: String
 ) {
 
+    object CliKt : Dependencies("com.github.ajalt", "clikt", "2.6.0")
+    object Kolor : Dependencies("com.andreapivetta.kolor", "kolor", "1.0.0")
     object KotlinStdlib : Dependencies("org.jetbrains.kotlin", "kotlin-stdlib", Versions.kotlin)
     object KotlinTest : Dependencies("org.jetbrains.kotlin", "kotlin-test", Versions.kotlin)
     object KotlinJunit : Dependencies("org.jetbrains.kotlin", "kotlin-test-junit", Versions.kotlin)
