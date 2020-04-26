@@ -5,7 +5,6 @@ import com.andreapivetta.kolor.red
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
-import me.shkschneider.cli.Options
 import me.shkschneider.cli.utils.GitCommands
 import me.shkschneider.cli.utils.exit
 import me.shkschneider.cli.utils.sign
@@ -29,7 +28,7 @@ class Update : CliktCommand(name = "update", help = "...") {
             }
         }
         if (fetch) GitCommands.fetch(all = true)
-        if (!Options.safe) GitCommands.pull()
+        GitCommands.pull()
         if (GitCommands.rebasing()) {
             echo("They were conflicts".red())
             exit(1)

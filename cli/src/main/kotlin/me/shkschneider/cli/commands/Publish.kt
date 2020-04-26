@@ -33,13 +33,13 @@ class Publish : CliktCommand(name = "publish", help = "...") {
             val behind = GitCommands.behind()
             if (behind.isNotEmpty()) {
                 if (Options.verbose) echo("Behind by ${behind.size}. Updating...")
-                if (!Options.safe) if (!GitCommands.pull(rebase = true)) exit(1)
+                if (!GitCommands.pull(rebase = true)) exit(1)
             }
             echo("Pushing:")
             ahead.forEach {
                 echo(" ".repeat(4) + " ${it.hash} ${it.message}")
             }
-            if (!Options.safe) GitCommands.push()
+            if (!Options.dryRun) GitCommands.push()
             echo("Remote '${GitCommands.remotes().first()}/${GitCommands.branch()}' updated.")
         }
     }

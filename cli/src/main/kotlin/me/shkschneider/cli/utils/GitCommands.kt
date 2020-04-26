@@ -40,9 +40,7 @@ object GitCommands {
             result.onFailure()
             result.onSuccess { email = it.first() }
         }
-        return Author(
-            requireNotNull(name) { "name" },
-            requireNotNull(email) { "email" })
+        return Author(requireNotNull(name) { "name" }, requireNotNull(email) { "email" })
     }
 
     fun authors(): List<Author> {
@@ -52,12 +50,7 @@ object GitCommands {
             result.onSuccess {
                 it.forEach {
                     val (name, email) = it.split(SEPARATOR)
-                    authors.add(
-                        Author(
-                            name.toLowerCase(),
-                            email.toLowerCase()
-                        )
-                    )
+                    authors.add(Author(name.toLowerCase(), email.toLowerCase()))
                 }
             }
         }
@@ -83,8 +76,7 @@ object GitCommands {
         exec("git rev-list --max-parents=0 HEAD --format=%h$SEPARATOR%s$SEPARATOR%ci") { result ->
             result.onFailure()
             result.onSuccess {
-                val (hash, message, date) = it.last()
-                    .split(SEPARATOR)
+                val (hash, message, date) = it.last().split(SEPARATOR)
                 birth = Commit(hash, message, date)
             }
         }
@@ -106,9 +98,7 @@ object GitCommands {
             result.onFailure()
             result.onSuccess { message = it.first() }
         }
-        return Commit(
-            hash,
-            requireNotNull(message) { "message" })
+        return Commit(hash, requireNotNull(message) { "message" })
     }
 
     fun dir(): String {
@@ -142,29 +132,44 @@ object GitCommands {
         exec("git log -1 $tip --format=%h$SEPARATOR%s") { result ->
             result.onFailure()
             result.onSuccess {
-                val (hash, message) = it.first()
-                    .split(SEPARATOR)
+                val (hash, message) = it.first().split(SEPARATOR)
                 head = Commit(hash, message)
             }
         }
         return requireNotNull(head) { "head" }
     }
 
+    fun new(branch: String, parent: String = branch(), push: Boolean = !Options.dryRun) {
+        if (Options.verbose) echo("Creating '$branch' from '$parent'...")
+        if (!Options.dryRun)
+            exec("git checkout -b $parent $branch") { result ->
+                result.onFailure()
+                result.onSuccess {
+                    if (push) push()
+                    if (Options.verbose) echo("Now on '$branch'")
+                }
+            }
+        else if (push) push()
+    }
+
     fun pull(branch: String = branch(), rebase: Boolean = true): Boolean {
-        var success: Boolean = false
+        var success = false
         if (Options.verbose) echo("Pulling '$branch' from '$remote'...")
-        exec("git pull" + (if (rebase) " --rebase" else "") + " $remote $branch") { result ->
-            result.onFailure()
-            result.onSuccess { success = true }
-        }
+        if (!Options.dryRun)
+            exec("git pull" + (if (rebase) " --rebase" else "") + " $remote $branch") { result ->
+                result.onFailure()
+                result.onSuccess { success = true }
+            }
+        else success = true
         return success
     }
 
     fun push(branch: String = branch()) {
         if (Options.verbose) echo("Pushing '$branch' to '$remote'...")
-        exec("git push $remote $branch") { result ->
-            result.onFailure()
-        }
+        if (!Options.dryRun)
+            exec("git push $remote $branch") { result ->
+                result.onFailure()
+            }
     }
 
     fun rebasing(): Boolean {
@@ -174,7 +179,7 @@ object GitCommands {
     }
 
     fun remotes(): List<Remote> {
-        val remotes: MutableList<Remote> = mutableListOf()
+        val remotes = mutableListOf<Remote>()
         exec("git remote -v") { result ->
             result.onFailure()
             result.onSuccess {
@@ -225,7 +230,7 @@ object GitCommands {
                 }
             }
         }
-        return requireNotNull(status) { "status" }
+        return status
     }
 
     fun version(): String {
